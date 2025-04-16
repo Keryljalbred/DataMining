@@ -20,11 +20,12 @@ def preprocess_data(data):
     # Supprimer la colonne d'origine si nécessaire
     data = data.drop('trans_date_trans_time', axis=1)
 
-    # Encoder les variables catégorielles
-    data = pd.get_dummies(data, columns=['category', 'gender', 'job'], drop_first=True)
+    # Limiter le nombre de catégories dans les colonnes avec une haute cardinalité
+    frequent_categories = data['merchant'].value_counts().nlargest(10).index
+    data['merchant'] = data['merchant'].where(data['merchant'].isin(frequent_categories), 'Other')
 
-    # Vérifiez le type des colonnes encodées
-    print(data.dtypes)  # Ajoutez cette ligne pour vérifier les types de données
-    print(data.head())  # Voir les premières lignes des données
+    # Encoder les variables catégorielles (en évitant les grandes cardinalités)
+    categorical_cols = ['merchant']
+    data = pd.get_dummies(data, drop_first=True, columns=categorical_cols)
 
     return data

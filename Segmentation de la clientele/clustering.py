@@ -15,7 +15,8 @@ def kmeans_clustering(X_scaled, df):
     plt.title('Méthode du Coude')
     plt.xlabel('Nombre de Clusters')
     plt.ylabel('Inertie')
-    plt.show()
+    plt.savefig('methode du coude.png')  # Sauvegarder le graphique dans un fichier
+    plt.close()
 
     # Appliquer K-means avec le nombre optimal de clusters
     optimal_k = 5  # Ajustez selon le graphique

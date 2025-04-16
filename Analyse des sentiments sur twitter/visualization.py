@@ -8,4 +8,5 @@ def visualize_results(validation_data):
     plt.title('Distribution des Sentiments dans l\'Ensemble de Validation')
     plt.xlabel('Sentiment')
     plt.ylabel('Nombre de Tweets')
-    plt.show()
+    plt.savefig('Distribution.png')  # Sauvegarder le graphique dans un fichier
+    plt.close()
